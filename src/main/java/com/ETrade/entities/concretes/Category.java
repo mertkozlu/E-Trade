@@ -3,9 +3,8 @@ package com.ETrade.entities.concretes;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
-@Table
+@Table(name = "categories")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,9 +12,9 @@ import lombok.NoArgsConstructor;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "categoryId")
     private int id;
-    @Column
+    @Column(name = "categoryName")
     private String name;
 
 }

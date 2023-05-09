@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@Table
+@Table(name = "products")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "productId")
     private int id;
-    @Column
+    @Column(name = "productName")
     private String name;
 }

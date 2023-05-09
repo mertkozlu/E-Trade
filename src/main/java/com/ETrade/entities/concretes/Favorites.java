@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@Table
+@Table(name = "favorites")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class Favorites {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "favoritesId")
     private int id;
-    @Column
+    @Column(name = "favoritesName")
     private String name;
 }

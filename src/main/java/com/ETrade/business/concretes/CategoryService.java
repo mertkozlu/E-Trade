@@ -25,15 +25,19 @@ public class CategoryService {
 
         for (Category category : categories) {
             GetAllCategoriesResponse responseItem = new GetAllCategoriesResponse();
-            responseItem.setId(category.getId());
-            responseItem.setName(category.getName());
+            responseItem.setCategoryId(category.getCategoryId());
+            responseItem.setCategoryName(category.getCategoryName());
         }
         return categoriesResponse;
     }
 
 
-    public GetByIdCategoryResponse getById(int id) {
-        return null;
+    public GetByIdCategoryResponse getById(int categoryId) throws Exception {
+        Category category = categoryRepository.findById(categoryId).orElse(null);
+        if (category == null) {
+            throw new Exception("Category could not find !");
+        }
+        return new GetByIdCategoryResponse(category);
     }
 
     public void add(CreateCategoryRequest createCategoryRequest) {
@@ -44,7 +48,7 @@ public class CategoryService {
 
     }
 
-    public void deleteById(int id) {
+    public void deleteById(int categoryId) {
 
     }
 }

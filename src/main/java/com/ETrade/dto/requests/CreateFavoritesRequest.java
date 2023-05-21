@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class CreateFavoritesRequest {
-    private String name;
+    private String favoriteName;
 
 }

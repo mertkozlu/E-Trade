@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class GetAllFavoritesResponse {
-    private int id;
-    private String name;
+    private int favoriteId;
+    private String favoriteName;
 }

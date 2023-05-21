@@ -3,9 +3,7 @@ package com.ETrade.business.concretes;
 import com.ETrade.dataAccess.abstracts.FavoritesRepository;
 import com.ETrade.dto.requests.CreateFavoritesRequest;
 import com.ETrade.dto.requests.UpdateFavoritesRequest;
-import com.ETrade.dto.responses.GetAllCategoriesResponse;
 import com.ETrade.dto.responses.GetAllFavoritesResponse;
-import com.ETrade.dto.responses.GetByIdCategoryResponse;
 import com.ETrade.entities.concretes.Favorites;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,13 +23,13 @@ public class FavoritesService {
 
         for (Favorites favorites1 : favorites) {
             GetAllFavoritesResponse responseItem = new GetAllFavoritesResponse();
-            responseItem.setId(favorites1.getId());
-            responseItem.setName(favorites1.getName());
+            responseItem.setFavoriteId(favorites1.getFavoriteId());
+            responseItem.setFavoriteName(favorites1.getFavoriteName());
         }
         return favoritesResponse;
     }
 
-    public GetAllFavoritesResponse getById(int id) {
+    public GetAllFavoritesResponse getById(int favoriteId) {
         return null;
     }
 
@@ -43,7 +41,7 @@ public class FavoritesService {
 
     }
 
-    public void deleteById(int id) {
+    public void deleteById(int favoriteId) {
 
     }
 }

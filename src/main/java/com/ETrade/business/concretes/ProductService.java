@@ -3,7 +3,6 @@ package com.ETrade.business.concretes;
 import com.ETrade.dataAccess.abstracts.ProdcutRepository;
 import com.ETrade.dto.requests.CreateProductRequest;
 import com.ETrade.dto.requests.UpdateProductRequest;
-import com.ETrade.dto.responses.GetAllFavoritesResponse;
 import com.ETrade.dto.responses.GetAllProductsResponse;
 import com.ETrade.entities.concretes.Product;
 import lombok.AllArgsConstructor;
@@ -25,13 +24,13 @@ public class ProductService {
 
         for (Product product : products) {
             GetAllProductsResponse responseItem = new GetAllProductsResponse();
-            responseItem.setId(product.getId());
-            responseItem.setName(product.getName());
+            responseItem.setProductId(product.getProductId());
+            responseItem.setProductName(product.getProductName());
         }
         return productResponse;
     }
 
-    public GetAllProductsResponse getById(int id) {
+    public GetAllProductsResponse getById(int productId) {
         return null;
     }
 
@@ -44,7 +43,7 @@ public class ProductService {
 
     }
 
-    public void deleteById(int id) {
+    public void deleteById(int productId) {
 
     }
 }

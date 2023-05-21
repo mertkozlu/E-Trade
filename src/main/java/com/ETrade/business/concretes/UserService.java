@@ -2,9 +2,7 @@ package com.ETrade.business.concretes;
 
 import com.ETrade.dataAccess.abstracts.UserRepository;
 import com.ETrade.dto.requests.CreateUserRequest;
-import com.ETrade.dto.requests.UpdateProductRequest;
 import com.ETrade.dto.requests.UpdateUserRequest;
-import com.ETrade.dto.responses.GetAllProductsResponse;
 import com.ETrade.dto.responses.GetAllUsersResponse;
 import com.ETrade.entities.concretes.User;
 import lombok.AllArgsConstructor;
@@ -26,13 +24,13 @@ public class UserService {
 
         for (User user : users) {
             GetAllUsersResponse responseItem = new GetAllUsersResponse();
-            responseItem.setId(user.getId());
-            responseItem.setName(user.getName());
+            responseItem.setUserId(user.getUserId());
+            responseItem.setUserName(user.getUserName());
         }
         return usersResponse;
     }
 
-    public GetAllProductsResponse getById(int id) {
+    public GetAllUsersResponse getById(int userId) {
         return null;
     }
 
@@ -44,7 +42,7 @@ public class UserService {
 
     }
 
-    public void deleteById(int id) {
+    public void deleteById(int userId) {
 
     }
 

@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class UpdateProductRequest {
-    private int id;
-    private String name;
+    private int productId;
+    private String productName;
 }

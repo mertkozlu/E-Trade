@@ -1,7 +1,8 @@
 package com.ETrade.wepApi.controllers;
 
 import com.ETrade.business.concretes.UserService;
-import com.ETrade.dto.requests.CreateUserRequests;
+import com.ETrade.dto.requests.CreateUserRequest;
+import com.ETrade.dto.requests.UpdateUserRequest;
 import com.ETrade.entities.concretes.User;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +24,13 @@ public class UsersController {
     }
 
     @PostMapping("/add")
-    public User createOneUser(@RequestBody CreateUserRequests newUser) {
+    public User createOneUser(@RequestBody CreateUserRequest newUser) {
         return userService.saveOneUser(newUser);
+    }
+
+    @PutMapping("/{userId}")
+    public User updateOneUser(@PathVariable Long userId,@RequestBody  UpdateUserRequest updateUserRequest) {
+        return this.userService.updateOnePostById(userId, updateUserRequest);
     }
 
 

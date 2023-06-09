@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "users")
 @Data
@@ -15,7 +16,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId")
-    private int userId;
-    @Column(name = "userName")
+    private Long userId;
     private String userName;
+    private String password;
+    private String email;
+    private Date birthDate;
+    private int age;
+
+
 }

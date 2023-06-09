@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "products")
 @Data
@@ -18,4 +19,12 @@ public class Product {
     private int productId;
     @Column(name = "productName")
     private String productName;
+    @Column(name = "productDescription")
+    private String productDescription;
+    @Column(name = "productPrice")
+    private double productPrice;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    Date createDate;
+
 }

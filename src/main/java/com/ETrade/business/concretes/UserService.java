@@ -1,50 +1,37 @@
 package com.ETrade.business.concretes;
 
+import com.ETrade.businessRules.UserBusinessRules;
+import com.ETrade.core.utilities.mappers.ModelMapperService;
 import com.ETrade.dataAccess.abstracts.UserRepository;
-import com.ETrade.dto.requests.CreateUserRequest;
-import com.ETrade.dto.requests.UpdateUserRequest;
-import com.ETrade.dto.responses.GetAllUsersResponse;
+import com.ETrade.dto.requests.CreateUserRequests;
 import com.ETrade.entities.concretes.User;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserBusinessRules userBusinessRules;
+    private final ModelMapperService modelMapperService;
 
-
-    public List<GetAllUsersResponse> getAll() {
-
-        List<User> users = userRepository.findAll();
-        List<GetAllUsersResponse> usersResponse = new ArrayList<GetAllUsersResponse>();
-
-        for (User user : users) {
-            GetAllUsersResponse responseItem = new GetAllUsersResponse();
-            responseItem.setUserId(user.getUserId());
-            responseItem.setUserName(user.getUserName());
-        }
-        return usersResponse;
-    }
-
-    public GetAllUsersResponse getById(int userId) {
-        return null;
-    }
-
-    public void add(CreateUserRequest createUserRequest) {
-
-    }
-
-    public void update(UpdateUserRequest updateUserRequest) {
-
-    }
-
-    public void deleteById(int userId) {
-
+    public UserService(UserRepository userRepository, UserBusinessRules userBusinessRules,
+                       ModelMapperService modelMapperService) {
+        this.userRepository = userRepository;
+        this.userBusinessRules = userBusinessRules;
+        this.modelMapperService = modelMapperService;
     }
 
 
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User saveOneUser(CreateUserRequests newUser) {
+        this.userBusinessRules.existsByUserName(newUser.getUserName());
+        this.userBusinessRules.existsByEmail(newUser.getEmail());
+        this.userBusinessRules.createPassword(newUser.getPassword());
+        User user = modelMapperService.forRequest().map(newUser, User.class);
+      return userRepository.save(user);
+    }
 }

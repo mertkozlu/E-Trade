@@ -1,4 +1,4 @@
-package com.ETrade.entities.concretes;
+package com.ETrade.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

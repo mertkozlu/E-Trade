@@ -1,9 +1,9 @@
 package com.ETrade.wepApi.controllers;
 
-import com.ETrade.business.concretes.UserService;
+import com.ETrade.business.UserService;
 import com.ETrade.dto.requests.CreateUserRequest;
 import com.ETrade.dto.requests.UpdateUserRequest;
-import com.ETrade.entities.concretes.User;
+import com.ETrade.entities.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

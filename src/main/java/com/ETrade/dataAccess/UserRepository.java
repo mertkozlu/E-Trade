@@ -1,6 +1,6 @@
-package com.ETrade.dataAccess.abstracts;
+package com.ETrade.dataAccess;
 
-import com.ETrade.entities.concretes.User;
+import com.ETrade.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

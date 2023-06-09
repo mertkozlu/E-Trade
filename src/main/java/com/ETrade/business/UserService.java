@@ -1,12 +1,12 @@
-package com.ETrade.business.concretes;
+package com.ETrade.business;
 
 import com.ETrade.businessRules.UserBusinessRules;
 import com.ETrade.core.utilities.exceptions.UserNotFoundException;
 import com.ETrade.core.utilities.mappers.ModelMapperService;
-import com.ETrade.dataAccess.abstracts.UserRepository;
+import com.ETrade.dataAccess.UserRepository;
 import com.ETrade.dto.requests.CreateUserRequest;
 import com.ETrade.dto.requests.UpdateUserRequest;
-import com.ETrade.entities.concretes.User;
+import com.ETrade.entities.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

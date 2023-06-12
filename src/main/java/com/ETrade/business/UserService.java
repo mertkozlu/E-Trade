@@ -1,6 +1,7 @@
 package com.ETrade.business;
 
 import com.ETrade.businessRules.UserBusinessRules;
+import com.ETrade.core.utilities.exceptions.BusinessException;
 import com.ETrade.core.utilities.exceptions.UserNotFoundException;
 import com.ETrade.core.utilities.mappers.ModelMapperService;
 import com.ETrade.dataAccess.UserRepository;
@@ -36,7 +37,7 @@ public class UserService {
         this.userBusinessRules.existsByEmail(newUser.getEmail());
         this.userBusinessRules.createPassword(newUser.getPassword());
         User user = modelMapperService.forRequest().map(newUser, User.class);
-      return userRepository.save(user);
+        return userRepository.save(user);
     }
 
     public User updateOnePostById(Long userId, UpdateUserRequest updateUserRequest) {
@@ -55,8 +56,16 @@ public class UserService {
 
 
     public GetByIdUserResponse getOneUser(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userRepository.getById(userId);
+        if (user == null) {
+            throw new BusinessException("User could not found");
+        }
         GetByIdUserResponse userResponse = this.modelMapperService.forResponse().map(user, GetByIdUserResponse.class);
         return userResponse;
     }
+
+    public void deleteByUser(Long userId) {
+        this.userRepository.deleteById(userId);
+    }
+
 }

@@ -19,12 +19,16 @@ public class Favorites {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "favoritesId")
     private Long favoriteId;
-    @Column(name = "favoritesName")
-    private String favoriteName;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Product product;
 }

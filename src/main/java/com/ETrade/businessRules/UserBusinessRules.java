@@ -2,13 +2,10 @@ package com.ETrade.businessRules;
 
 import com.ETrade.core.utilities.exceptions.BusinessException;
 import com.ETrade.core.utilities.exceptions.UserNotFoundException;
+import com.ETrade.dataAccess.CategoryRepository;
 import com.ETrade.dataAccess.UserRepository;
-import com.ETrade.dto.responses.GetByIdUserResponse;
-import com.ETrade.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

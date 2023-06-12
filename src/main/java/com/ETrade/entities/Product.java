@@ -37,9 +37,8 @@ public class Product {
     private Favorites favorites;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Category category;
 
 

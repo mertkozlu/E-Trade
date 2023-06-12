@@ -7,7 +7,7 @@ import com.ETrade.core.utilities.mappers.ModelMapperService;
 import com.ETrade.dataAccess.UserRepository;
 import com.ETrade.dto.requests.CreateUserRequest;
 import com.ETrade.dto.requests.UpdateUserRequest;
-import com.ETrade.dto.responses.GetByIdUserResponse;
+import com.ETrade.dto.responses.UserResponse;
 import com.ETrade.entities.User;
 import org.springframework.stereotype.Service;
 
@@ -55,12 +55,12 @@ public class UserService {
     }
 
 
-    public GetByIdUserResponse getOneUser(Long userId) {
+    public UserResponse getOneUser(Long userId) {
         User user = userRepository.getById(userId);
         if (user == null) {
             throw new BusinessException("User could not found");
         }
-        GetByIdUserResponse userResponse = this.modelMapperService.forResponse().map(user, GetByIdUserResponse.class);
+        UserResponse userResponse = this.modelMapperService.forResponse().map(user, UserResponse.class);
         return userResponse;
     }
 

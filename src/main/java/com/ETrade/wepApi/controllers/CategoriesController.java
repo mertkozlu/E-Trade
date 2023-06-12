@@ -2,8 +2,8 @@ package com.ETrade.wepApi.controllers;
 
 import com.ETrade.business.CategoryService;
 import com.ETrade.dto.requests.CreateCategoryRequest;
+import com.ETrade.dto.requests.UpdateCategoryRequest;
 import com.ETrade.entities.Category;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,5 +27,9 @@ public class CategoriesController {
         return categoryService.createOneCategory(newCategory);
     }
 
+    @PutMapping("/{categoryId}")
+    public Category updateOneCategory(@PathVariable Long categoryId, @RequestBody UpdateCategoryRequest updateCategoryRequest) {
+        return categoryService.updateOneCategoryById(categoryId,updateCategoryRequest);
+    }
 
 }

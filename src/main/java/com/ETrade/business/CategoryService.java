@@ -2,13 +2,16 @@ package com.ETrade.business;
 
 
 import com.ETrade.businessRules.CategoryBusinessRules;
+import com.ETrade.core.utilities.exceptions.BusinessException;
 import com.ETrade.core.utilities.mappers.ModelMapperService;
 import com.ETrade.dataAccess.CategoryRepository;
 import com.ETrade.dto.requests.CreateCategoryRequest;
+import com.ETrade.dto.requests.UpdateCategoryRequest;
 import com.ETrade.entities.Category;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CategoryService {
@@ -33,5 +36,15 @@ public class CategoryService {
         this.categoryBusinessRules.categoryName(newCategory.getCategoryName());
         Category category = this.modelMapperService.forRequest().map(newCategory, Category.class);
         return categoryRepository.save(category);
+    }
+
+    public Category updateOneCategoryById(Long categoryId, UpdateCategoryRequest updateCategoryRequest) {
+        Category category = categoryRepository.findById(categoryId).orElse(null);
+        if (Objects.nonNull(category)) {
+            category.setCategoryName(updateCategoryRequest.getCategoryName());
+            categoryRepository.save(category);
+            return category;
+        }
+        throw new BusinessException("Category could not found");
     }
 }

@@ -40,7 +40,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateOnePostById(Long userId, UpdateUserRequest updateUserRequest) {
+    public User updateOneUserById(Long userId, UpdateUserRequest updateUserRequest) {
         User user = userRepository.findById(userId).orElse(null);
         if (Objects.nonNull(user)) {
             user.setUserName(updateUserRequest.getUserName());

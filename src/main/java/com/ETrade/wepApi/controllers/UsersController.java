@@ -31,7 +31,7 @@ public class UsersController {
 
     @PutMapping("/{userId}")
     public User updateOneUser(@PathVariable Long userId,@RequestBody  UpdateUserRequest updateUserRequest) {
-        return this.userService.updateOnePostById(userId, updateUserRequest);
+        return this.userService.updateOneUserById(userId, updateUserRequest);
     }
 
     @GetMapping("/{userId}")

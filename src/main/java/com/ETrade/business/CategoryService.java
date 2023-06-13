@@ -7,6 +7,7 @@ import com.ETrade.core.utilities.mappers.ModelMapperService;
 import com.ETrade.dataAccess.CategoryRepository;
 import com.ETrade.dto.requests.CreateCategoryRequest;
 import com.ETrade.dto.requests.UpdateCategoryRequest;
+import com.ETrade.dto.responses.CategoryResponse;
 import com.ETrade.entities.Category;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,8 @@ public class CategoryService {
     private final ModelMapperService modelMapperService;
     private final CategoryBusinessRules categoryBusinessRules;
 
-    public CategoryService (CategoryRepository categoryRepository, UserService userService,
-                            ModelMapperService modelMapperService, CategoryBusinessRules categoryBusinessRules) {
+    public CategoryService(CategoryRepository categoryRepository, UserService userService,
+                           ModelMapperService modelMapperService, CategoryBusinessRules categoryBusinessRules) {
         this.categoryRepository = categoryRepository;
         this.userService = userService;
         this.modelMapperService = modelMapperService;
@@ -47,4 +48,18 @@ public class CategoryService {
         }
         throw new BusinessException("Category could not found");
     }
+
+    public CategoryResponse getOneCategoryById(Long categoryId) {
+        Category category = categoryRepository.getById(categoryId);
+        if (category == null) {
+            throw new BusinessException("Category could not found");
+        }
+        CategoryResponse categoryResponse = this.modelMapperService.forResponse().map(category, CategoryResponse.class);
+        return categoryResponse;
+    }
+
+    public void deleteById(Long categoryId) {
+        this.categoryRepository.deleteById(categoryId);
+    }
+
 }

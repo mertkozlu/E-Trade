@@ -3,6 +3,7 @@ package com.ETrade.wepApi.controllers;
 import com.ETrade.business.CategoryService;
 import com.ETrade.dto.requests.CreateCategoryRequest;
 import com.ETrade.dto.requests.UpdateCategoryRequest;
+import com.ETrade.dto.responses.CategoryResponse;
 import com.ETrade.entities.Category;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class CategoriesController {
     private final CategoryService categoryService;
 
-    public CategoriesController (CategoryService categoryService) {
+    public CategoriesController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
@@ -29,7 +30,17 @@ public class CategoriesController {
 
     @PutMapping("/{categoryId}")
     public Category updateOneCategory(@PathVariable Long categoryId, @RequestBody UpdateCategoryRequest updateCategoryRequest) {
-        return categoryService.updateOneCategoryById(categoryId,updateCategoryRequest);
+        return categoryService.updateOneCategoryById(categoryId, updateCategoryRequest);
+    }
+
+    @GetMapping("/{categoryId}")
+    public CategoryResponse getOneCategory(@PathVariable Long categoryId) {
+        return categoryService.getOneCategoryById(categoryId);
+    }
+
+    @DeleteMapping("/{categoryId}")
+    public void deleteById(@PathVariable Long categoryId) {
+        this.categoryService.deleteById(categoryId);
     }
 
 }

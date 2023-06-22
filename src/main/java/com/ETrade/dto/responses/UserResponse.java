@@ -1,6 +1,5 @@
 package com.ETrade.dto.responses;
 
-import com.ETrade.entities.User;
 import lombok.Data;
 
 @Data

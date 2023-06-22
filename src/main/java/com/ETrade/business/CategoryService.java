@@ -17,14 +17,12 @@ import java.util.Objects;
 @Service
 public class CategoryService {
     private final CategoryRepository categoryRepository;
-    private final UserService userService;
     private final ModelMapperService modelMapperService;
     private final CategoryBusinessRules categoryBusinessRules;
 
-    public CategoryService(CategoryRepository categoryRepository, UserService userService,
-                           ModelMapperService modelMapperService, CategoryBusinessRules categoryBusinessRules) {
+    public CategoryService(CategoryRepository categoryRepository, ModelMapperService modelMapperService,
+                           CategoryBusinessRules categoryBusinessRules) {
         this.categoryRepository = categoryRepository;
-        this.userService = userService;
         this.modelMapperService = modelMapperService;
         this.categoryBusinessRules = categoryBusinessRules;
     }

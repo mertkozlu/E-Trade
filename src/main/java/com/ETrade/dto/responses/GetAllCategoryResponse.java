@@ -4,11 +4,11 @@ import com.ETrade.entities.Category;
 import lombok.Data;
 
 @Data
-public class CategoryResponse {
+public class GetAllCategoryResponse {
     private Long categoryId;
     private String categoryName;
 
-    public CategoryResponse(Category entity) {
+    public GetAllCategoryResponse(Category entity) {
         this.categoryId = entity.getCategoryId();
         this.categoryName = entity.getCategoryName();
     }

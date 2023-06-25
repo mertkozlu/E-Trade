@@ -2,7 +2,7 @@ package com.ETrade.wepApi.controllers;
 
 import com.ETrade.business.ProductService;
 import com.ETrade.dto.requests.CreateProductRequest;
-import com.ETrade.dto.responses.ProductResponse;
+import com.ETrade.dto.responses.GetAllProductResponse;
 import com.ETrade.entities.Product;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +19,9 @@ public class ProductsController {
     }
 
     @GetMapping("/getAll")
-    public List<ProductResponse> getAllProducts(@RequestParam Optional<Long> categoryId) {
-        return productService.getAllProducts(categoryId);
+    public List<GetAllProductResponse> getAllProducts(@RequestParam Optional<Long> categoryId,
+                                                      @RequestParam Optional<String> categoryName) {
+        return productService.getAllProducts(categoryId, categoryName);
     }
 
     @PostMapping("/add")

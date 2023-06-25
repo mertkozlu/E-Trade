@@ -6,13 +6,15 @@ import com.ETrade.core.utilities.exceptions.UserNotFoundException;
 import com.ETrade.core.utilities.mappers.ModelMapperService;
 import com.ETrade.dataAccess.UserRepository;
 import com.ETrade.dto.requests.UpdateUserRequest;
-import com.ETrade.dto.requests.UserRequest;
-import com.ETrade.dto.responses.UserResponse;
+import com.ETrade.dto.requests.CreateUserRequest;
+import com.ETrade.dto.responses.GetAllUserResponse;
+import com.ETrade.dto.responses.GetByIdUserResponse;
 import com.ETrade.entities.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -28,11 +30,14 @@ public class UserService {
     }
 
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<GetAllUserResponse> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        List<GetAllUserResponse> userResponses = users.stream().map(user -> this.modelMapperService.forResponse()
+                .map(user, GetAllUserResponse.class)).collect(Collectors.toList());
+        return userResponses;
     }
 
-    public User saveOneUser(User newUser) {
+    public User saveOneUser(CreateUserRequest newUser) {
         this.userBusinessRules.existsByUserName(newUser.getUserName());
         this.userBusinessRules.existsByEmail(newUser.getEmail());
         this.userBusinessRules.createPassword(newUser.getPassword());
@@ -55,12 +60,9 @@ public class UserService {
     }
 
 
-    public UserResponse getOneUser(Long userId) {
-        User user = userRepository.getById(userId);
-        if (user == null) {
-            throw new BusinessException("User could not found");
-        }
-        UserResponse userResponse = this.modelMapperService.forResponse().map(user, UserResponse.class);
+    public GetByIdUserResponse getOneUser(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        GetByIdUserResponse userResponse = this.modelMapperService.forResponse().map(user, GetByIdUserResponse.class);
         return userResponse;
     }
 

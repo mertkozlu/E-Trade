@@ -7,12 +7,13 @@ import com.ETrade.core.utilities.mappers.ModelMapperService;
 import com.ETrade.dataAccess.CategoryRepository;
 import com.ETrade.dto.requests.CreateCategoryRequest;
 import com.ETrade.dto.requests.UpdateCategoryRequest;
-import com.ETrade.dto.responses.CategoryResponse;
+import com.ETrade.dto.responses.GetAllCategoryResponse;
 import com.ETrade.entities.Category;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -27,8 +28,11 @@ public class CategoryService {
         this.categoryBusinessRules = categoryBusinessRules;
     }
 
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+    public List<GetAllCategoryResponse> getAllCategories() {
+        List<Category> categories = categoryRepository.findAll();
+        List<GetAllCategoryResponse> categoryResponse = categories.stream().map(category -> this.modelMapperService.forResponse()
+                        .map(category, GetAllCategoryResponse.class)).collect(Collectors.toList());
+        return categoryResponse;
     }
 
     public Category createOneCategory(CreateCategoryRequest newCategory) {
@@ -47,13 +51,13 @@ public class CategoryService {
         throw new BusinessException("Category could not found");
     }
 
-    public CategoryResponse getOneCategory(Long categoryId) {
+    public GetAllCategoryResponse getOneCategory(Long categoryId) {
         Category category = categoryRepository.getById(categoryId);
         if (category == null) {
             throw new BusinessException("Category could not found");
         }
-        CategoryResponse categoryResponse = this.modelMapperService.forResponse().map(category, CategoryResponse.class);
-        return categoryResponse;
+        GetAllCategoryResponse getAllCategoryResponse = this.modelMapperService.forResponse().map(category, GetAllCategoryResponse.class);
+        return getAllCategoryResponse;
     }
 
     public void deleteById(Long categoryId) {

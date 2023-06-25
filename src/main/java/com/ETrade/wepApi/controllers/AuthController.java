@@ -4,7 +4,7 @@ import com.ETrade.business.RefreshTokenService;
 import com.ETrade.business.UserService;
 import com.ETrade.dto.requests.LoginRequest;
 import com.ETrade.dto.requests.RefreshRequest;
-import com.ETrade.dto.requests.UserRequest;
+import com.ETrade.dto.requests.CreateUserRequest;
 import com.ETrade.dto.responses.AuthResponse;
 import com.ETrade.entities.RefreshToken;
 import com.ETrade.entities.User;
@@ -57,13 +57,13 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<AuthResponse> register(@RequestBody @Validated UserRequest request) {
+    public ResponseEntity<AuthResponse> register(@RequestBody @Validated CreateUserRequest request) {
         AuthResponse authResponse = new AuthResponse();
         if (userService.getOneUserByUserName(request.getUserName()) != null) {
             authResponse.setMessage("Username already in use.");
             return new ResponseEntity<>(authResponse, HttpStatus.BAD_REQUEST);
         }
-        User user = new User();
+        CreateUserRequest user = new CreateUserRequest();
         user.setUserName(request.getUserName());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
@@ -79,8 +79,7 @@ public class AuthController {
 
         authResponse.setMessage("User successfully registered.");
         authResponse.setAccessToken("Bearer " + jwtToken);
-        authResponse.setRefreshToken(refreshTokenService.createRefreshToken(user));
-        authResponse.setUserId(user.getUserId());
+        authResponse.setUserId(authResponse.getUserId());
         return new ResponseEntity<>(authResponse, HttpStatus.ACCEPTED);
     }
 

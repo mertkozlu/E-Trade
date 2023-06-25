@@ -4,9 +4,7 @@ import com.ETrade.businessRules.ProductBusinessRules;
 import com.ETrade.core.utilities.mappers.ModelMapperService;
 import com.ETrade.dataAccess.ProductRepository;
 import com.ETrade.dto.requests.CreateProductRequest;
-import com.ETrade.dto.responses.CategoryResponse;
-import com.ETrade.dto.responses.ProductResponse;
-import com.ETrade.entities.Category;
+import com.ETrade.dto.responses.GetAllProductResponse;
 import com.ETrade.entities.Product;
 import org.springframework.stereotype.Service;
 
@@ -28,16 +26,27 @@ public class ProductService {
         this.categoryService = categoryService;
     }
 
-    public List<ProductResponse> getAllProducts(Optional<Long> categoryId) {
+    public List<GetAllProductResponse> getAllProducts(Optional<Long> categoryId, Optional<String> categoryName) {
         List<Product> list;
-        if (categoryId.isPresent()) {
+        if (categoryId.isPresent() && categoryName.isPresent()) {
+            list = productRepository.findByCategory_CategoryIdAndCategory_CategoryName(categoryId.get(),categoryName.get());
+        }else if (categoryId.isPresent()){
+            list = productRepository.findByCategory_CategoryId(categoryId.get());
+        } else if (categoryName.isPresent()) {
+            list = productRepository.findByCategory_CategoryName(categoryName.get());
+        }else
             list = productRepository.findAll();
-            return list.stream().map(product -> new ProductResponse()).collect(Collectors.toList());
-        }
-        return null;
+        return list.stream().map(product -> new GetAllProductResponse(product)).collect(Collectors.toList());
     }
 
     public Product saveOneProduct(CreateProductRequest newProduct) {
-        return null;
+        this.productBusinessRules.productName(newProduct.getProductName());
+        Product toSave = new Product();
+        toSave.setProductName(newProduct.getProductName());
+        toSave.setProductPrice(newProduct.getProductPrice());
+        toSave.setProductDescription(newProduct.getProductDescription());
+        toSave.setCategory(newProduct.getCategory());
+
+        return productRepository.save(toSave);
     }
 }

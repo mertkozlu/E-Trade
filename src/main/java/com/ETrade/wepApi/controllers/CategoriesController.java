@@ -3,7 +3,7 @@ package com.ETrade.wepApi.controllers;
 import com.ETrade.business.CategoryService;
 import com.ETrade.dto.requests.CreateCategoryRequest;
 import com.ETrade.dto.requests.UpdateCategoryRequest;
-import com.ETrade.dto.responses.CategoryResponse;
+import com.ETrade.dto.responses.GetAllCategoryResponse;
 import com.ETrade.entities.Category;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,7 @@ public class CategoriesController {
     }
 
     @GetMapping("/getAll")
-    public List<Category> getAll() {
+    public List<GetAllCategoryResponse> getAll() {
         return categoryService.getAllCategories();
     }
 
@@ -34,7 +34,7 @@ public class CategoriesController {
     }
 
     @GetMapping("/{categoryId}")
-    public CategoryResponse getOneCategory(@PathVariable Long categoryId) {
+    public GetAllCategoryResponse getOneCategory(@PathVariable Long categoryId) {
         return categoryService.getOneCategory(categoryId);
     }
 

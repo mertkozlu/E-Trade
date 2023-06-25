@@ -2,8 +2,9 @@ package com.ETrade.wepApi.controllers;
 
 import com.ETrade.business.UserService;
 import com.ETrade.dto.requests.UpdateUserRequest;
-import com.ETrade.dto.requests.UserRequest;
-import com.ETrade.dto.responses.UserResponse;
+import com.ETrade.dto.requests.CreateUserRequest;
+import com.ETrade.dto.responses.GetAllUserResponse;
+import com.ETrade.dto.responses.GetByIdUserResponse;
 import com.ETrade.entities.User;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +21,12 @@ public class UsersController {
     }
 
     @GetMapping("/getAll")
-    public List<User> getAllUsers() {
+    public List<GetAllUserResponse> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @PostMapping("/add")
-    public User createOneUser(@RequestBody User newUser) {
+    public User createOneUser(@RequestBody CreateUserRequest newUser) {
         return userService.saveOneUser(newUser);
     }
 
@@ -35,7 +36,7 @@ public class UsersController {
     }
 
     @GetMapping("/{userId}")
-    public UserResponse getOneUser(@PathVariable Long userId) {
+    public GetByIdUserResponse getOneUser(@PathVariable Long userId) {
         return userService.getOneUser(userId);
     }
 

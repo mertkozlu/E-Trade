@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class CategoryBusinessRules {
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     public void categoryName(String categoryName) {
         if (categoryName.isEmpty()) {

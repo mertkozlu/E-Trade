@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Data
-public class RegisterRequest {
+public class UserRequest {
     @NotNull
     @Size(min = 5, max = 25)
     private String userName;

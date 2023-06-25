@@ -47,7 +47,7 @@ public class CategoryService {
         throw new BusinessException("Category could not found");
     }
 
-    public CategoryResponse getOneCategoryById(Long categoryId) {
+    public CategoryResponse getOneCategory(Long categoryId) {
         Category category = categoryRepository.getById(categoryId);
         if (category == null) {
             throw new BusinessException("Category could not found");

@@ -35,7 +35,7 @@ public class CategoriesController {
 
     @GetMapping("/{categoryId}")
     public CategoryResponse getOneCategory(@PathVariable Long categoryId) {
-        return categoryService.getOneCategoryById(categoryId);
+        return categoryService.getOneCategory(categoryId);
     }
 
     @DeleteMapping("/{categoryId}")

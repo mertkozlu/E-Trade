@@ -5,8 +5,8 @@ import com.ETrade.core.utilities.exceptions.BusinessException;
 import com.ETrade.core.utilities.exceptions.UserNotFoundException;
 import com.ETrade.core.utilities.mappers.ModelMapperService;
 import com.ETrade.dataAccess.UserRepository;
-import com.ETrade.dto.requests.CreateUserRequest;
 import com.ETrade.dto.requests.UpdateUserRequest;
+import com.ETrade.dto.requests.UserRequest;
 import com.ETrade.dto.responses.UserResponse;
 import com.ETrade.entities.User;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User saveOneUser(CreateUserRequest newUser) {
+    public User saveOneUser(User newUser) {
         this.userBusinessRules.existsByUserName(newUser.getUserName());
         this.userBusinessRules.existsByEmail(newUser.getEmail());
         this.userBusinessRules.createPassword(newUser.getPassword());

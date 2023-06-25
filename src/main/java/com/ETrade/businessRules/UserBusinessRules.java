@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class UserBusinessRules {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public void existsByUserName(String userName) {
         if (this.userRepository.existsByUserName(userName)) {

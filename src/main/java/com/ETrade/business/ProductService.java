@@ -1,12 +1,16 @@
 package com.ETrade.business;
 
 import com.ETrade.businessRules.ProductBusinessRules;
+import com.ETrade.core.utilities.exceptions.ProductNotFoundException;
 import com.ETrade.core.utilities.mappers.ModelMapperService;
 import com.ETrade.dataAccess.ProductRepository;
 import com.ETrade.dto.requests.CreateProductRequest;
+import com.ETrade.dto.requests.UpdateProductRequest;
 import com.ETrade.dto.responses.GetAllProductResponse;
 import com.ETrade.entities.Product;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,12 +33,12 @@ public class ProductService {
     public List<GetAllProductResponse> getAllProducts(Optional<Long> categoryId, Optional<String> categoryName) {
         List<Product> list;
         if (categoryId.isPresent() && categoryName.isPresent()) {
-            list = productRepository.findByCategory_CategoryIdAndCategory_CategoryName(categoryId.get(),categoryName.get());
-        }else if (categoryId.isPresent()){
+            list = productRepository.findByCategory_CategoryIdAndCategory_CategoryName(categoryId.get(), categoryName.get());
+        } else if (categoryId.isPresent()) {
             list = productRepository.findByCategory_CategoryId(categoryId.get());
         } else if (categoryName.isPresent()) {
             list = productRepository.findByCategory_CategoryName(categoryName.get());
-        }else
+        } else
             list = productRepository.findAll();
         return list.stream().map(product -> new GetAllProductResponse(product)).collect(Collectors.toList());
     }
@@ -48,5 +52,24 @@ public class ProductService {
         toSave.setCategory(newProduct.getCategory());
 
         return productRepository.save(toSave);
+    }
+
+    public void updateOneProduct(Long productId, UpdateProductRequest updateProductRequest) {
+        Product product = this.modelMapperService.forRequest().map(updateProductRequest, Product.class);
+        productRepository.save(product);
+
+    }
+
+
+    public GetAllProductResponse getOneProduct(Long productId) {
+        Product product = productRepository.findById(productId).orElse(null);
+        if (product == null) {
+            throw new ProductNotFoundException("Product not available");
+        }
+        return new GetAllProductResponse(product);
+    }
+
+    public void deleteOneProduct(Long productId) {
+        this.productRepository.deleteById(productId);
     }
 }

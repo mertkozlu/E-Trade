@@ -18,7 +18,7 @@ import java.util.Date;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "productId")
+    @Column(name = "product_id")
     private Long productId;
     @Column(name = "productName")
     private String productName;
@@ -30,15 +30,14 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     Date createDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "favorites_id",nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private Favorites favorites;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "favorites_id",nullable = false)
+//    @JsonIgnore
+//    private Favorites favorites;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Category category;
 
 

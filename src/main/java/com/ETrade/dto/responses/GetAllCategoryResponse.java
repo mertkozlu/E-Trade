@@ -8,6 +8,9 @@ public class GetAllCategoryResponse {
     private Long categoryId;
     private String categoryName;
 
+    public GetAllCategoryResponse() {
+
+    }
     public GetAllCategoryResponse(Category entity) {
         this.categoryId = entity.getCategoryId();
         this.categoryName = entity.getCategoryName();

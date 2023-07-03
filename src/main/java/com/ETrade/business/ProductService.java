@@ -42,14 +42,16 @@ public class ProductService {
     }
 
     public Product saveOneProduct(CreateProductRequest newProduct) {
-        this.productBusinessRules.productName(newProduct.getProductName());
-        Product toSave = new Product();
-        toSave.setProductName(newProduct.getProductName());
-        toSave.setProductPrice(newProduct.getProductPrice());
-        toSave.setProductDescription(newProduct.getProductDescription());
-        toSave.setCategory(newProduct.getCategory());
-
-        return productRepository.save(toSave);
+        Product product = this.modelMapperService.forRequest().map(newProduct, Product.class);
+        return this.productRepository.save(product);
+//        this.productBusinessRules.productName(newProduct.getProductName());
+//        Product toSave = new Product();
+//        toSave.setProductName(newProduct.getProductName());
+//        toSave.setProductPrice(newProduct.getProductPrice());
+//        toSave.setProductDescription(newProduct.getProductDescription());
+//        toSave.setCategory(newProduct.getCategory());
+//
+//        return productRepository.save(toSave);
     }
 
     public void updateOneProduct(Long productId, UpdateProductRequest updateProductRequest) {

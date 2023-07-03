@@ -8,7 +8,8 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class CreateProductRequest {
-    private Category category;
+    private Long categoryId;
+    private Long productId;
     @NotNull
     @NotBlank
     private String productName;
@@ -17,5 +18,6 @@ public class CreateProductRequest {
     private String productDescription;
     @NotNull
     private double productPrice;
+
 
 }

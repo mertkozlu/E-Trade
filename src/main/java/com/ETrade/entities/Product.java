@@ -30,11 +30,6 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     Date createDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "favorites_id",nullable = false)
-    @JsonIgnore
-    private Favorites favorites;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     @JsonIgnore

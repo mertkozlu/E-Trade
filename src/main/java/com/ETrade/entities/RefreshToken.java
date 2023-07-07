@@ -22,7 +22,7 @@ public class RefreshToken {
     private Long refreshTokenId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "userId")
     @JsonIgnore
     User user;
 

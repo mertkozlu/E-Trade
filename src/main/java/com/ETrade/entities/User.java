@@ -24,5 +24,8 @@ public class User {
     private Date birthDate;
     private int age;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    List<Favorites> favorites;
+
 
 }

@@ -20,7 +20,7 @@ public class Category {
     @Column(name = "categoryName")
     private String categoryName;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Product> products;
 
 

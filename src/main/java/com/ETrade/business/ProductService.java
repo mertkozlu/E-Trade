@@ -1,6 +1,7 @@
 package com.ETrade.business;
 
 import com.ETrade.businessRules.ProductBusinessRules;
+import com.ETrade.core.utilities.exceptions.BusinessException;
 import com.ETrade.core.utilities.exceptions.ProductNotFoundException;
 import com.ETrade.core.utilities.mappers.ModelMapperService;
 import com.ETrade.dataAccess.ProductRepository;
@@ -10,6 +11,7 @@ import com.ETrade.dto.responses.GetAllProductResponse;
 import com.ETrade.entities.Product;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,6 +45,7 @@ public class ProductService {
 
     public Product saveOneProduct(CreateProductRequest newProduct) {
         Product product = this.modelMapperService.forRequest().map(newProduct, Product.class);
+        product.setCreateDate(new Date());
         return this.productRepository.save(product);
 //        this.productBusinessRules.productName(newProduct.getProductName());
 //        Product toSave = new Product();
@@ -55,8 +58,11 @@ public class ProductService {
     }
 
     public void updateOneProduct(Long productId, UpdateProductRequest updateProductRequest) {
-        Product product = this.modelMapperService.forRequest().map(updateProductRequest, Product.class);
-        productRepository.save(product);
+        Product product = productRepository.findById(updateProductRequest.getProductId()).orElseThrow(
+                () -> new BusinessException("Product can not found."));
+        Product productToUpdate = this.modelMapperService.forRequest().map(updateProductRequest, Product.class);
+        productToUpdate.setCreateDate(product.getCreateDate());
+        this.productRepository.save(product);
 
     }
 

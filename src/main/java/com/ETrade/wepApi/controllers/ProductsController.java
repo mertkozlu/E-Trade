@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("products")
 public class ProductsController {
     private final ProductService productService;
 
@@ -31,17 +31,17 @@ public class ProductsController {
         return productService.saveOneProduct(newProduct);
     }
 
-    @PutMapping("/{productId}")
+    @PutMapping("/update/{productId}")
     public void updateOneProduct(@PathVariable Long productId, @RequestBody UpdateProductRequest updateProductRequest) {
         this.productService.updateOneProduct(productId, updateProductRequest);
     }
 
-    @GetMapping("/{productId}")
+    @GetMapping("/getById/{productId}")
     public ResponseEntity<GetAllProductResponse> getOneProduct(@PathVariable Long productId) {
         return ResponseEntity.ok(productService.getOneProduct(productId));
     }
 
-    @DeleteMapping("/{productId}")
+    @DeleteMapping("/delete/{productId}")
     public void deleteOneProduct(@PathVariable Long productId) {
         this.productService.deleteOneProduct(productId);
     }

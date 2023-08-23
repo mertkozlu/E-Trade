@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/favorites")
+@RequestMapping("favorites")
 public class FavoritesController {
     private final FavoriteService favoriteService;
 
@@ -28,7 +28,7 @@ public class FavoritesController {
         return favoriteService.crateOneFavorite(createFavoriteRequest);
     }
 
-    @DeleteMapping("/{favoriteId}")
+    @DeleteMapping("/delete/{favoriteId}")
     public void deleteOneFavorite(@PathVariable Long favoriteId) {
         this.favoriteService.deleteOneFavorite(favoriteId);
     }

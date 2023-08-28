@@ -61,7 +61,7 @@ public class UserService {
 
 
     public GetByIdUserResponse getOneUser(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow(() -> new BusinessException("User can not found."));
         GetByIdUserResponse userResponse = this.modelMapperService.forResponse().map(user, GetByIdUserResponse.class);
         return userResponse;
     }

@@ -67,6 +67,7 @@ public class UserService {
     }
 
     public void deleteByUser(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new BusinessException("User can not found."));
         this.userRepository.deleteById(userId);
     }
 

@@ -1,5 +1,6 @@
 package com.ETrade.business;
 
+import com.ETrade.core.utilities.exceptions.BusinessException;
 import com.ETrade.core.utilities.mappers.ModelMapperService;
 import com.ETrade.dataAccess.FavoritesRepository;
 import com.ETrade.dto.requests.CreateFavoriteRequest;
@@ -41,6 +42,7 @@ public class FavoriteService {
     }
 
     public void deleteOneFavorite(Long favoriteId) {
+        Favorites favorites = favoritesRepository.findById(favoriteId).orElseThrow(() -> new BusinessException("Favorites can not found."));
         this.favoritesRepository.deleteById(favoriteId);
     }
 }

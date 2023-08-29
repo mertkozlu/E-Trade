@@ -76,6 +76,7 @@ public class ProductService {
     }
 
     public void deleteOneProduct(Long productId) {
+        Product product = productRepository.findById(productId).orElseThrow(() -> new BusinessException("Product can not found."));
         this.productRepository.deleteById(productId);
     }
 }

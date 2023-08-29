@@ -61,7 +61,9 @@ public class CategoryService {
     }
 
     public void deleteById(Long categoryId) {
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new BusinessException("Category can not found."));
         this.categoryRepository.deleteById(categoryId);
+
     }
 
 }
